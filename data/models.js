@@ -17,8 +17,19 @@ const Stories = sequelize.define("Stories", {
   writer: Sequelize.STRING
 });
 
+const Movies = sequelize.define("Movies", {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  title: Sequelize.STRING,
+  director: Sequelize.STRING
+})
+
 module.exports = {
   Sequelize,
   sequelize,
-  Stories
+  Stories,
+  Movies
 };

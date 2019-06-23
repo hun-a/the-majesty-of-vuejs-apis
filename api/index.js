@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const stories = require("./stories");
+const movies = require("./movies");
 
 router
   .route("/stories")
@@ -13,5 +14,15 @@ router
   .put(stories.update)
   .delete(stories.destroy);
 
+router
+  .route("/movies")
+  .get(movies.getAll)
+  .post(movies.create);
+
+router
+  .route("/movies/:id")
+  .get(movies.getById)
+  .put(movies.update)
+  .delete(movies.destroy);
 
 module.exports = router;
