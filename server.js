@@ -17,6 +17,7 @@ app.get("/", (req, res, next) => {
 app.use("/api", routes);
 
 app.use((err, req, res, next) => {
+  console.error(err);
   res.json(err);
 });
 

@@ -6,7 +6,12 @@ const sequelize = new Sequelize({
   storage: path.join(__dirname, "database.sqlite")
 });
 
-const Stories = sequelize.define("stories", {
+const Stories = sequelize.define("Stories", {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   plot: Sequelize.STRING,
   upvotes: Sequelize.INTEGER,
   writer: Sequelize.STRING
