@@ -2,9 +2,11 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const routes = require("./api");
+const AWSXRay = require("aws-xray-sdk");
 
 const app = express();
 
+app.use(AWSXRay.express.openSegment("MajestyOfVue"));
 app.use(morgan("combined"));
 app.use(cors());
 app.use(express.json());
@@ -15,6 +17,8 @@ app.get("/", (req, res, next) => {
 });
 
 app.use("/api", routes);
+
+app.use(AWSXRay.express.closeSegment());
 
 app.use((err, req, res, next) => {
   console.error(err);
