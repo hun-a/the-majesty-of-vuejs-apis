@@ -4,7 +4,7 @@ const cors = require("cors");
 const routes = require("./api");
 const AWSXRay = require("aws-xray-sdk");
 
-AWSXRay.config([AWSXray.plugins.EC2Plugin]);
+AWSXRay.config([AWSXRay.plugins.EC2Plugin]);
 AWSXRay.captureHTTPsGlobal(require("http"));
 
 const app = express();
