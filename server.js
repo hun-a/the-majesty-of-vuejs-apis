@@ -4,9 +4,10 @@ const cors = require("cors");
 const routes = require("./api");
 const AWSXRay = require("aws-xray-sdk");
 
+AWSXRay.captureHTTPsGlobal(require("http"));
+
 const app = express();
 
-app.use(AWSXRay.express.openSegment("MajestyOfVue"));
 app.use(morgan("combined"));
 app.use(cors());
 app.use(express.json());
@@ -15,6 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res, next) => {
   res.json("hello");
 });
+
+app.use(AWSXRay.express.openSegment("MajestyOfVue"));
 
 app.use("/api", routes);
 
