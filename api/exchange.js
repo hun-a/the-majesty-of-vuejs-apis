@@ -1,5 +1,6 @@
 const axios = require('axios');
 const request = require('request');
+const Es = require('../lib/es');
 
 const MONETARIES = {
   USD: 'FRX.KRWUSD',
@@ -64,7 +65,24 @@ const index = (req, res, next) => {
   }
 
   axios.get(URL + code)
-    .then(({ data }) => res.json(data[0]))
+    .then(({ data }) => {
+      const raw = data[0];
+      const body = {
+        id: raw.id,
+        code: raw.code,
+        monetary: raw.currencyCode,
+        country: raw.country,
+	      basePrice: raw.basePrice, 
+	      krwRate: Number(Number(1 / raw.basePrice).toPrecision(6)),
+	      provider: raw.provider,
+	      createdAt:raw.createdAt, 
+	      modifiedAt: raw.modifiedAt
+      };
+
+      return Es.index("exchange", "exchange", body)
+        .then(() => Es.search("exchange", { query: { match_all: {} } }))
+        .then(response => res.json(response))
+    })
     .catch(next);
 };
 
