@@ -75,8 +75,8 @@ const index = (req, res, next) => {
 	      basePrice: raw.basePrice, 
 	      krwRate: Number(Number(1 / raw.basePrice).toPrecision(6)),
 	      provider: raw.provider,
-	      createdAt:raw.createdAt, 
-	      modifiedAt: raw.modifiedAt
+	      createdAt: new Date(raw.createdAt).valueOf(), 
+	      modifiedAt: new Date(raw.modifiedAt).valueOf()
       };
 
       return Es.index("exchange", "exchange", body)
