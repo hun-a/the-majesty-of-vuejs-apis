@@ -3,6 +3,7 @@ const router = express.Router();
 const stories = require("./stories");
 const movies = require("./movies");
 const exchage = require("./exchange");
+const { wrapAsync } = require("../lib/captuer");
 
 router
   .route("/stories")
@@ -26,6 +27,6 @@ router
   .put(movies.update)
   .delete(movies.destroy);
 
-router.get("/exchange/:monetary", exchage.index);
+router.get("/exchange/:monetary", wrapAsync(exchage.index));
 
 module.exports = router;
