@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const stories = require("./stories");
 const movies = require("./movies");
+const exchage = require("./exchange");
 
 router
   .route("/stories")
@@ -24,5 +25,7 @@ router
   .get(movies.getById)
   .put(movies.update)
   .delete(movies.destroy);
+
+router.get("/exchange/:monetary", exchage.index);
 
 module.exports = router;
