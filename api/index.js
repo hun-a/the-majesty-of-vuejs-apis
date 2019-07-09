@@ -28,5 +28,6 @@ router
   .delete(movies.destroy);
 
 router.get("/exchange/:monetary", wrapAsync(exchage.index));
+router.get("/exchange2/:monetary", wrapAsync(exchage.index2));
 
 module.exports = router;

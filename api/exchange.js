@@ -1,4 +1,5 @@
 const axios = require('axios');
+const request = require('request');
 
 const MONETARIES = {
   USD: 'FRX.KRWUSD',
@@ -67,6 +68,17 @@ const index = (req, res, next) => {
     .catch(next);
 };
 
+const index2 = (req, res, next) => {
+  const { params: { monetary } } = req;
+  const code = MONETARIES[String(monetary).toUpperCase()];
+
+  if (!code) {
+    return next(new Error("Invalid monetary"));
+  }
+
+  request(URL + code, (err, response) => err ? next(err) : res.json(JSON.parse(response.data)));
+};
+
 module.exports = {
-  index
+  index, index2
 };
