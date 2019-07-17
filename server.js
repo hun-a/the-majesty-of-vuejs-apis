@@ -7,7 +7,6 @@ const logger = require("./lib/logger");
 
 AWSXRay.config([AWSXRay.plugins.EC2Plugin]);
 AWSXRay.captureHTTPsGlobal(require("http"));
-AWSXRay.captureHTTPsGlobal(require("https"));
 
 const app = express();
 
